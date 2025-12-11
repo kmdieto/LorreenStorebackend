@@ -97,8 +97,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS (for React frontend)
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # your Vite dev server
+    "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "https://693864fcb3f1a70008b23a4b--lorreenecomerce.netlify.app/"
+    "https://693864fcb3f1a70008b23a4b--lorreenecomerce.netlify.app",
 ]
-
+CORS_ALLOW_CREDENTIALS = True
