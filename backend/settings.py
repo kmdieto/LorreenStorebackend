@@ -10,7 +10,7 @@ SECRET_KEY = 'django-insecure-l2hs(253slvxhuv$!&n!(w^=kj8^m++x03ei7)lqr&ii+h**t^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 INSTALLED_APPS = [
@@ -99,5 +99,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # your Vite dev server
     "http://127.0.0.1:5173",
+    "https://693864fcb3f1a70008b23a4b--lorreenecomerce.netlify.app/"
 ]
 
