@@ -1,14 +1,82 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
-    <h2>Welcome to Lorreen Store!</h2>
-    {% if user.is_authenticated %}
-        <p>Hello, {{ user.username }}!</p>
-    {% else %}
-        <p>You are not logged in.</p>
-    {% endif %}
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Lorreen Store{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="row g-4">
+    <div class="col-12">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
+            <div>
+                <h1 class="h3 mb-1">Dashboard</h1>
+                <p class="text-muted mb-0">Overview of your products and categories.</p>
+            </div>
+            <a href="{% url 'logout' %}" class="btn btn-outline-secondary">Logout</a>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-xl-4">
+        <div class="card border-primary h-100">
+            <div class="card-body">
+                <h5 class="card-title">Products</h5>
+                <p class="display-6 mb-0">{{ product_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-4">
+        <div class="card border-success h-100">
+            <div class="card-body">
+                <h5 class="card-title">Categories</h5>
+                <p class="display-6 mb-0">{{ categories_count }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="h5 mb-3">Products</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                                <tr>
+                                    <td>{{ product.name }}</td>
+                                    <td>{{ product.category.name }}</td>
+                                    <td>${{ product.price }}</td>
+                                    <td>{{ product.stock }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="4" class="text-center py-4">No products available yet.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title mb-3">Welcome to Lorreen Store</h2>
+                <p class="lead">Please log in to see the dashboard and product overview.</p>
+                <a href="{% url 'login' %}" class="btn btn-primary mt-2">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

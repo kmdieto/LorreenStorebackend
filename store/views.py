@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -10,7 +10,17 @@ from .serializers import ProductSerializer, CategorySerializer, ProductImageSeri
 
 # ----- Web Views -----
 def home(request):
-    return render(request, 'home.html')
+    products = Product.objects.select_related('category').all()
+    return render(request, 'home.html', {
+        'products': products,
+        'product_count': products.count(),
+        'categories_count': Category.objects.count(),
+    })
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('home')
 
 
 def user_login(request):
